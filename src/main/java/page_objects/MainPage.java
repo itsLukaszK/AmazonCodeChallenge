@@ -1,9 +1,13 @@
 package page_objects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class MainPage {
+    // Implementation
+
     private WebDriver driver;
 
     public MainPage(WebDriver driver) {
@@ -11,5 +15,60 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    private static final String MAIN_PAGE = "https://www.amazon.com/";
+
+    // WebElements
+
+    @FindBy(xpath = "//a[@class='a-link-normal fsdLink fsdDeptLink'][text()='Camera, Photo & Video']")
+    WebElement cameraPhotoVideoLink;
+
+    @FindBy(xpath = "//span[@class='nav-line-2'][text()='Departments']")
+    WebElement departmentsButton;
+
+
+    // Fields
+
+    private static String mainPageAddress;
+
+    private String expectedMainPageTitle = "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more";
+
+
+    // Getters
+
+    public WebElement getDepartmentsButton() {
+        return departmentsButton;
+    }
+
+    public String getExpectedMainPageTitle() {
+        return expectedMainPageTitle;
+    }
+
+    public String getMainPageTitle(){
+        return driver.getTitle();
+    }
+
+    public WebElement getCameraPhotoVideoLink() {
+        return cameraPhotoVideoLink;
+    }
+
+
+    // Setters
+
+    public static void setMainPageAddress(String mainPageAddress) {
+        MainPage.mainPageAddress = mainPageAddress;
+    }
+
+
+    // Methods
+
+    public void clickDepartmentsButton(){
+        departmentsButton.click();
+    }
+
+    public void goToMainPageAddress(){
+        driver.get(mainPageAddress);
+    }
+
+    public void clickCameraPhotoVideoLink(){
+        cameraPhotoVideoLink.click();
+    }
 }
