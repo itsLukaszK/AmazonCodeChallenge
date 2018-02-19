@@ -29,8 +29,8 @@ public class AmazonFeatureSteps {
     public void userGoesIntoBestSellersInDigitalCameras() {
         wait.until(ExpectedConditions.elementToBeClickable(mainPage.getDepartmentsButton()));
         mainPage.clickDepartmentsButton();
-        wait.until(ExpectedConditions.elementToBeClickable(mainPage.getCameraPhotoVideoLink()));
-        mainPage.clickCameraPhotoVideoLink();
+        wait.until(ExpectedConditions.elementToBeClickable(departments.getCameraPhotoVideoLink()));
+        departments.clickCameraPhotoVideoLink();
         wait.until(ExpectedConditions.elementToBeClickable(cameraPhotoVideo.getBestSellersLink()));
         cameraPhotoVideo.clickBestSellersLink();
         // TODO

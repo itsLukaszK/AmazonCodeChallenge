@@ -18,9 +18,6 @@ public class MainPage {
 
     // WebElements
 
-    @FindBy(xpath = "//a[@class='a-link-normal fsdLink fsdDeptLink'][text()='Camera, Photo & Video']")
-    WebElement cameraPhotoVideoLink;
-
     @FindBy(xpath = "//span[@class='nav-line-2'][text()='Departments']")
     WebElement departmentsButton;
 
@@ -46,10 +43,6 @@ public class MainPage {
         return driver.getTitle();
     }
 
-    public WebElement getCameraPhotoVideoLink() {
-        return cameraPhotoVideoLink;
-    }
-
 
     // Setters
 
@@ -66,9 +59,5 @@ public class MainPage {
 
     public void goToMainPageAddress(){
         driver.get(mainPageAddress);
-    }
-
-    public void clickCameraPhotoVideoLink(){
-        cameraPhotoVideoLink.click();
     }
 }

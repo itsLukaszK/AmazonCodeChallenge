@@ -16,7 +16,7 @@ public class BeforeAfter {
     @Before
     public void setUp() {
         driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
         System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\geckodriver.exe");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
