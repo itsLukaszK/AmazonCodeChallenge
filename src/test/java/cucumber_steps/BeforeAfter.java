@@ -16,10 +16,10 @@ public class BeforeAfter {
     @Before
     public void setUp() {
         driver = new FirefoxDriver();
+        driver.manage().window().maximize();
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, 30);
         System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\geckodriver.exe");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @After

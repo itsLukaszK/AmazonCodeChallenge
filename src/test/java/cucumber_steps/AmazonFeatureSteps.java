@@ -4,10 +4,9 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import page_objects.CameraPhotoVideo;
-import page_objects.Departments;
-import page_objects.MainPage;
+import page_objects.*;
 
 import static cucumber_steps.BeforeAfter.driver;
 import static cucumber_steps.BeforeAfter.wait;
@@ -17,6 +16,9 @@ public class AmazonFeatureSteps {
     private MainPage mainPage = new MainPage(driver);
     private CameraPhotoVideo cameraPhotoVideo = new CameraPhotoVideo(driver);
     private Departments departments = new Departments(driver);
+    private BestSellersBestCameraPhoto bestSellersBestCameraPhoto = new BestSellersBestCameraPhoto(driver);
+    private BestSellersBestDigitalCameras bestSellersBestDigitalCameras = new BestSellersBestDigitalCameras(driver);
+    private Product product = new Product(driver);
 
     @Given("^User is visiting '(.*)' site$")
     public void userIsVisitingWebAddressSite(String webAddress) {
@@ -33,17 +35,24 @@ public class AmazonFeatureSteps {
         departments.clickCameraPhotoVideoLink();
         wait.until(ExpectedConditions.elementToBeClickable(cameraPhotoVideo.getBestSellersLink()));
         cameraPhotoVideo.clickBestSellersLink();
-        // TODO
+        wait.until(ExpectedConditions.elementToBeClickable(bestSellersBestCameraPhoto.getDigitalCamerasLink()));
+        bestSellersBestCameraPhoto.clickDigitalCamerasLink();
+        wait.until(ExpectedConditions.titleIs(bestSellersBestDigitalCameras.getExpectedBestSellersBestDigitalCamerasPageTitle()));
     }
 
-    @When("^User opens details of product number 'productNumber' from the list$")
-    public void userOpensDetailsOfProductNumberProductNumberFromTheList() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @When("^User opens details of product number '(.*)' from the list$")
+    public void userOpensDetailsOfProductNumberProductNumberFromTheList(int productNumber) {
+        productNumber--;
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector(bestSellersBestDigitalCameras.getDigitalCameraProductsListCssLocator()), 20));
+        wait.until(ExpectedConditions.elementToBeClickable(bestSellersBestDigitalCameras.getDigitalCameraProduct(productNumber)));
+        product.setExpectedProductPageTitle(bestSellersBestDigitalCameras.getDigitalCameraProductName(productNumber));
+        bestSellersBestDigitalCameras.clickDigitalCameraProduct(productNumber);
+        wait.until(ExpectedConditions.titleIs(product.getExpectedProductPageTitle()));
     }
 
-    @When("^User adds 'quantity' pieces of the product to the shopping cart and gets the name and price of the product$")
-    public void userAddsQuantityPiecesOfTheProductToTheShoppingCartAndGetsTheNameAndPriceOfTheProduct() throws Throwable {
+    @When("^User adds '(.*)' pieces of the product to the shopping cart and gets the name and price of the product$")
+    public void userAddsQuantityPiecesOfTheProductToTheShoppingCartAndGetsTheNameAndPriceOfTheProduct(String quantity) throws Throwable {
+
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
