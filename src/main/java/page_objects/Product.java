@@ -38,17 +38,29 @@ public class Product {
 
     private String expectedProductPageTitle;
 
-    private BigDecimal bigDecimalProductPrice = new BigDecimal(productPrice.getText().substring(1).replace(",", ""));
+//    private BigDecimal bigDecimalProductPrice = new BigDecimal(productPrice.getText().substring(1).replace(",", ""));
 
-    private BigDecimal bigDecimalQuantity = new BigDecimal();
+//    private BigDecimal bigDecimalQuantity = new BigDecimal();
 
-    private BigDecimal bigDecimalCalculatedSubtotal = bigDecimalProductPrice.multiply(bigDecimalQuantity);
+//    private BigDecimal bigDecimalCalculatedSubtotal = bigDecimalProductPrice.multiply(bigDecimalQuantity);
 
 
     // Getters
 
     public String getExpectedProductPageTitle() {
         return expectedProductPageTitle;
+    }
+
+    public WebElement getQuantitySelect() {
+        return quantitySelect;
+    }
+
+    public WebElement getAddToCartButton() {
+        return addToCartButton;
+    }
+
+    public WebElement getNoThanksButton() {
+        return noThanksButton;
     }
 
 
@@ -64,5 +76,13 @@ public class Product {
     public void selectQuantityOfProducts(String quantity) {
         Select select = new Select(quantitySelect);
         select.selectByValue(quantity);
+    }
+
+    public void clickAddToCartButton() {
+        addToCartButton.submit();
+    }
+
+    public void clickNoThanksButton() {
+        noThanksButton.click();
     }
 }

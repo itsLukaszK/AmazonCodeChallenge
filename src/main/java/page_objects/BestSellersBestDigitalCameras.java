@@ -39,7 +39,7 @@ public class BestSellersBestDigitalCameras {
     }
 
     public String getDigitalCameraProductName(int index) {
-        if (digitalCameraProductsList.get(index).getAttribute("title") != null) {
+        if (digitalCameraProductsList.get(index).getAttribute("title") != null && !digitalCameraProductsList.get(index).getAttribute("title").equals("")) {
             return digitalCameraProductsList.get(index).getAttribute("title");
         } else return digitalCameraProductsList.get(index).getText();
     }

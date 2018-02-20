@@ -5,6 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import page_objects.*;
 
@@ -51,10 +52,16 @@ public class AmazonFeatureSteps {
     }
 
     @When("^User adds '(.*)' pieces of the product to the shopping cart and gets the name and price of the product$")
-    public void userAddsQuantityPiecesOfTheProductToTheShoppingCartAndGetsTheNameAndPriceOfTheProduct(String quantity) throws Throwable {
-
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void userAddsQuantityPiecesOfTheProductToTheShoppingCartAndGetsTheNameAndPriceOfTheProduct(String quantity) {
+        wait.until(ExpectedConditions.elementToBeClickable(product.getQuantitySelect()));
+        product.selectQuantityOfProducts(quantity);
+        wait.until(ExpectedConditions.elementToBeClickable(product.getAddToCartButton()));
+        product.clickAddToCartButton();
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(product.getNoThanksButton()));
+            product.clickNoThanksButton();
+        } catch (TimeoutException e) {
+        }
     }
 
     @Then("^The correct product was added$")
