@@ -11,6 +11,7 @@ import page_objects.*;
 
 import static cucumber_steps.BeforeAfter.driver;
 import static cucumber_steps.BeforeAfter.wait;
+import static org.testng.Assert.assertEquals;
 import static page_objects.MainPage.setMainPageAddress;
 
 public class AmazonFeatureSteps {
@@ -20,6 +21,7 @@ public class AmazonFeatureSteps {
     private BestSellersBestCameraPhoto bestSellersBestCameraPhoto = new BestSellersBestCameraPhoto(driver);
     private BestSellersBestDigitalCameras bestSellersBestDigitalCameras = new BestSellersBestDigitalCameras(driver);
     private Product product = new Product(driver);
+    private ShoppingCart shoppingCart = new ShoppingCart(driver);
 
     @Given("^User is visiting '(.*)' site$")
     public void userIsVisitingWebAddressSite(String webAddress) {
@@ -62,10 +64,15 @@ public class AmazonFeatureSteps {
             product.clickNoThanksButton();
         } catch (TimeoutException e) {
         }
+        wait.until(ExpectedConditions.visibilityOf(shoppingCart.getAddedToCartConfirmation()));
     }
 
     @Then("^The correct product was added$")
     public void theCorrectProductWasAdded() throws Throwable {
+        wait.until(ExpectedConditions.elementToBeClickable(mainPage.getCartButton()));
+        mainPage.clickCartButton();
+        wait.until(ExpectedConditions.visibilityOf(shoppingCart.getProductTitle()));
+        assertEquals(shoppingCart.getProductTitleText(), ); //TODO
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }

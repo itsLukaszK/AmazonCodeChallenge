@@ -21,9 +21,11 @@ public class BestSellersBestDigitalCameras {
 
     // Fields
 
-    private String expectedBestSellersBestDigitalCamerasPageTitle = "Amazon Best Sellers: Best Digital Cameras";
+    private final String expectedBestSellersBestDigitalCamerasPageTitle = "Amazon Best Sellers: Best Digital Cameras";
 
     private final String digitalCameraProductsListCssLocator = "#zg_centerListWrapper .p13n-sc-truncated";
+
+    private int productIndex; // TODO
 
 
     // WebElements

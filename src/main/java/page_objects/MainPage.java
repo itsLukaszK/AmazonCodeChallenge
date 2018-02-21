@@ -21,6 +21,9 @@ public class MainPage {
     @FindBy(xpath = "//span[@class='nav-line-2'][text()='Departments']")
     WebElement departmentsButton;
 
+    @FindBy(id = "nav-cart")
+    WebElement cartButton;
+
 
     // Fields
 
@@ -43,6 +46,10 @@ public class MainPage {
         return driver.getTitle();
     }
 
+    public WebElement getCartButton() {
+        return cartButton;
+    }
+
 
     // Setters
 
@@ -59,5 +66,9 @@ public class MainPage {
 
     public void goToMainPageAddress(){
         driver.get(mainPageAddress);
+    }
+
+    public void clickCartButton() {
+        cartButton.click();
     }
 }
