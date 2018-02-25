@@ -56,11 +56,11 @@ public class ShoppingCart {
 
     // Methods
 
-    public String getProductTitleText(){
+    public String getProductTitleText() {
         return productTitle.getText().trim();
     }
 
     public void setBigDecimalSubtotalDisplayed() {
-        bigDecimalSubtotalDisplayed = new BigDecimal(subtotalDisplayed.getText().substring(1).replace(",",""));
+        bigDecimalSubtotalDisplayed = new BigDecimal(subtotalDisplayed.getText().substring(1).replace(",", ""));
     }
 }

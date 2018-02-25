@@ -36,8 +36,6 @@ public class Product {
 
     // Fields
 
-    private String expectedProductPageTitle;
-
     private Select select;
 
     private BigDecimal bigDecimalProductPrice;
@@ -48,10 +46,6 @@ public class Product {
 
 
     // Getters
-
-    public String getExpectedProductPageTitle() {
-        return expectedProductPageTitle;
-    }
 
     public WebElement getQuantitySelect() {
         return quantitySelect;
@@ -65,18 +59,6 @@ public class Product {
         return noThanksButton;
     }
 
-    public BigDecimal getBigDecimalProductPrice() {
-        return bigDecimalProductPrice;
-    }
-
-    public BigDecimal getBigDecimalQuantity() {
-        return bigDecimalQuantity;
-    }
-
-    public Select getSelect() {
-        return select;
-    }
-
     public WebElement getProductPrice() {
         return productPrice;
     }
@@ -87,10 +69,6 @@ public class Product {
 
 
     // Setters
-
-    public void setExpectedProductPageTitle(String digitalCameraProductName) {
-        expectedProductPageTitle = "Amazon.com : " + digitalCameraProductName + " : Camera & Photo";
-    }
 
     public void setBigDecimalProductPrice() {
         bigDecimalProductPrice = new BigDecimal(productPrice.getText().substring(1).replace(",", ""));
@@ -126,7 +104,7 @@ public class Product {
         noThanksButton.click();
     }
 
-    public void calculateBigDecimalSubtotal(){
+    public void calculateBigDecimalSubtotal() {
         bigDecimalCalculatedSubtotal = bigDecimalProductPrice.multiply(bigDecimalQuantity);
     }
 }

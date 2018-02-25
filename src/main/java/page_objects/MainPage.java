@@ -29,7 +29,7 @@ public class MainPage {
 
     private static String mainPageAddress;
 
-    private String expectedMainPageTitle = "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more";
+    private final String expectedMainPageTitle = "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more";
 
 
     // Getters
@@ -40,10 +40,6 @@ public class MainPage {
 
     public String getExpectedMainPageTitle() {
         return expectedMainPageTitle;
-    }
-
-    public String getMainPageTitle(){
-        return driver.getTitle();
     }
 
     public WebElement getCartButton() {
@@ -60,11 +56,11 @@ public class MainPage {
 
     // Methods
 
-    public void clickDepartmentsButton(){
+    public void clickDepartmentsButton() {
         departmentsButton.click();
     }
 
-    public void goToMainPageAddress(){
+    public void goToMainPageAddress() {
         driver.get(mainPageAddress);
     }
 

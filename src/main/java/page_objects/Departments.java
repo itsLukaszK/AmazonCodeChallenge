@@ -31,7 +31,7 @@ public class Departments {
 
     // Methods
 
-    public void clickCameraPhotoVideoLink(){
+    public void clickCameraPhotoVideoLink() {
         cameraPhotoVideoLink.click();
     }
 }

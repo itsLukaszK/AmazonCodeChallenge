@@ -31,7 +31,7 @@ public class CameraPhotoVideo {
 
     // Methods
 
-    public void clickBestSellersLink(){
+    public void clickBestSellersLink() {
         bestSellersLink.click();
     }
 }
