@@ -18,5 +18,7 @@ The components required to run the tests are:
 Geckodriver is included in the project.
 
 
+Please note that test can take a while because of some slowly loading scripts appearing sometimes on Amazon.com and Selenium waiting for the whole page to be loaded.
+
 
 Please don't hesitate to contact me in case of any questions regarding the scenario. If anything is wrong, I'll be grateful if you inform me about it, as I consider learning from my potential mistakes as valuable. Thank you!
