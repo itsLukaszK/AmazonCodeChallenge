@@ -54,7 +54,7 @@ public class AmazonFeatureSteps {
         wait.until(ExpectedConditions.titleContains(" : Camera & Photo"));
     }
 
-    @When("^User adds '(.*)' pieces of the product to the shopping cart and gets the price of the product$")
+    @When("^User adds '(.*)' or maximum available number of pieces of the product to the shopping cart and gets the price of the product$")
     public void userAddsQuantityPiecesOfTheProductToTheShoppingCartAndGetsThePriceOfTheProduct(String quantity) {
         wait.until(ExpectedConditions.visibilityOf(product.getProductPrice()));
         product.setBigDecimalProductPrice();
