@@ -1,10 +1,10 @@
 package cucumber_steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import page_objects.*;
@@ -43,20 +43,35 @@ public class AmazonFeatureSteps {
         wait.until(ExpectedConditions.titleIs(bestSellersBestDigitalCameras.getExpectedBestSellersBestDigitalCamerasPageTitle()));
     }
 
-    @When("^User opens details of product number '(.*)' from the list$")
+    @When("^User opens details of product number '(.*)' from the list and gets the name of the product$")
     public void userOpensDetailsOfProductNumberProductNumberFromTheList(int productNumber) {
         productNumber--;
         wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector(bestSellersBestDigitalCameras.getDigitalCameraProductsListCssLocator()), 20));
         wait.until(ExpectedConditions.elementToBeClickable(bestSellersBestDigitalCameras.getDigitalCameraProduct(productNumber)));
-        product.setExpectedProductPageTitle(bestSellersBestDigitalCameras.getDigitalCameraProductName(productNumber));
+        bestSellersBestDigitalCameras.setDigitalCameraProductName(productNumber);
         bestSellersBestDigitalCameras.clickDigitalCameraProduct(productNumber);
-        wait.until(ExpectedConditions.titleIs(product.getExpectedProductPageTitle()));
+        wait.until(ExpectedConditions.titleContains("Amazon.com : "));
+        wait.until(ExpectedConditions.titleContains(" : Camera & Photo"));
     }
 
-    @When("^User adds '(.*)' pieces of the product to the shopping cart and gets the name and price of the product$")
-    public void userAddsQuantityPiecesOfTheProductToTheShoppingCartAndGetsTheNameAndPriceOfTheProduct(String quantity) {
-        wait.until(ExpectedConditions.elementToBeClickable(product.getQuantitySelect()));
-        product.selectQuantityOfProducts(quantity);
+    @When("^User adds '(.*)' pieces of the product to the shopping cart and gets the price of the product$")
+    public void userAddsQuantityPiecesOfTheProductToTheShoppingCartAndGetsThePriceOfTheProduct(String quantity) {
+        wait.until(ExpectedConditions.visibilityOf(product.getProductPrice()));
+        product.setBigDecimalProductPrice();
+        try {
+            wait.until(ExpectedConditions.visibilityOf(product.getQuantitySelect()));
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(product.getQuantitySelect()));
+                product.selectQuantityOfProducts(quantity);
+            } catch (NoSuchElementException e) {
+                product.selectHighestAvailableQuantityOfProducts();
+                quantity = product.getHighestAvailableQuantityOfProducts();
+            }
+        } catch (TimeoutException e) {
+            quantity = "1";
+        }
+        product.setBigDecimalQuantity(quantity);
+        product.calculateBigDecimalSubtotal();
         wait.until(ExpectedConditions.elementToBeClickable(product.getAddToCartButton()));
         product.clickAddToCartButton();
         try {
@@ -68,18 +83,17 @@ public class AmazonFeatureSteps {
     }
 
     @Then("^The correct product was added$")
-    public void theCorrectProductWasAdded() throws Throwable {
+    public void theCorrectProductWasAdded() {
         wait.until(ExpectedConditions.elementToBeClickable(mainPage.getCartButton()));
         mainPage.clickCartButton();
         wait.until(ExpectedConditions.visibilityOf(shoppingCart.getProductTitle()));
-        assertEquals(shoppingCart.getProductTitleText(), ); //TODO
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertEquals(shoppingCart.getProductTitleText(), bestSellersBestDigitalCameras.getDigitalCameraProductName());
     }
 
     @Then("^The subtotal price sum is correct$")
-    public void theSubtotalPriceSumIsCorrect() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void theSubtotalPriceSumIsCorrect() {
+        wait.until(ExpectedConditions.visibilityOf(shoppingCart.getSubtotalDisplayed()));
+        shoppingCart.setBigDecimalSubtotalDisplayed();
+        assertEquals(product.getBigDecimalCalculatedSubtotal(), shoppingCart.getBigDecimalSubtotalDisplayed());
     }
 }

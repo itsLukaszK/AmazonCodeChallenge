@@ -38,11 +38,13 @@ public class Product {
 
     private String expectedProductPageTitle;
 
-//    private BigDecimal bigDecimalProductPrice = new BigDecimal(productPrice.getText().substring(1).replace(",", ""));
+    private Select select;
 
-//    private BigDecimal bigDecimalQuantity = new BigDecimal();
+    private BigDecimal bigDecimalProductPrice;
 
-//    private BigDecimal bigDecimalCalculatedSubtotal = bigDecimalProductPrice.multiply(bigDecimalQuantity);
+    private BigDecimal bigDecimalQuantity;
+
+    private BigDecimal bigDecimalCalculatedSubtotal;
 
 
     // Getters
@@ -63,6 +65,26 @@ public class Product {
         return noThanksButton;
     }
 
+    public BigDecimal getBigDecimalProductPrice() {
+        return bigDecimalProductPrice;
+    }
+
+    public BigDecimal getBigDecimalQuantity() {
+        return bigDecimalQuantity;
+    }
+
+    public Select getSelect() {
+        return select;
+    }
+
+    public WebElement getProductPrice() {
+        return productPrice;
+    }
+
+    public BigDecimal getBigDecimalCalculatedSubtotal() {
+        return bigDecimalCalculatedSubtotal;
+    }
+
 
     // Setters
 
@@ -70,12 +92,30 @@ public class Product {
         expectedProductPageTitle = "Amazon.com : " + digitalCameraProductName + " : Camera & Photo";
     }
 
+    public void setBigDecimalProductPrice() {
+        bigDecimalProductPrice = new BigDecimal(productPrice.getText().substring(1).replace(",", ""));
+    }
+
+    public void setBigDecimalQuantity(String quantity) {
+        bigDecimalQuantity = new BigDecimal(quantity);
+    }
+
 
     // Methods
 
     public void selectQuantityOfProducts(String quantity) {
-        Select select = new Select(quantitySelect);
+        select = new Select(quantitySelect);
         select.selectByValue(quantity);
+    }
+
+    public void selectHighestAvailableQuantityOfProducts() {
+        select = new Select(quantitySelect);
+        select.selectByIndex(select.getOptions().size() - 1);
+    }
+
+    public String getHighestAvailableQuantityOfProducts() {
+        select = new Select(quantitySelect);
+        return select.getOptions().get(select.getOptions().size() - 1).getText();
     }
 
     public void clickAddToCartButton() {
@@ -84,5 +124,9 @@ public class Product {
 
     public void clickNoThanksButton() {
         noThanksButton.click();
+    }
+
+    public void calculateBigDecimalSubtotal(){
+        bigDecimalCalculatedSubtotal = bigDecimalProductPrice.multiply(bigDecimalQuantity);
     }
 }

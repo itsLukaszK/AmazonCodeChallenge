@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.math.BigDecimal;
+
 public class ShoppingCart {
     // Implementation
 
@@ -24,6 +26,14 @@ public class ShoppingCart {
     @FindBy(css = ".a-size-medium.sc-product-title")
     WebElement productTitle;
 
+    @FindBy(css = "#sc-subtotal-amount-activecart span")
+    WebElement subtotalDisplayed;
+
+
+    // Fields
+
+    private BigDecimal bigDecimalSubtotalDisplayed;
+
 
     // Getters
 
@@ -35,10 +45,22 @@ public class ShoppingCart {
         return productTitle;
     }
 
+    public WebElement getSubtotalDisplayed() {
+        return subtotalDisplayed;
+    }
+
+    public BigDecimal getBigDecimalSubtotalDisplayed() {
+        return bigDecimalSubtotalDisplayed;
+    }
+
 
     // Methods
 
     public String getProductTitleText(){
         return productTitle.getText().trim();
+    }
+
+    public void setBigDecimalSubtotalDisplayed() {
+        bigDecimalSubtotalDisplayed = new BigDecimal(subtotalDisplayed.getText().substring(1).replace(",",""));
     }
 }

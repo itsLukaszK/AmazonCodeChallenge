@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-
 
 public class BeforeAfter {
     static WebDriver driver;
@@ -17,14 +15,13 @@ public class BeforeAfter {
     public void setUp() {
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 10);
         System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\geckodriver.exe");
     }
 
     @After
     public void afterTest() {
         driver.manage().deleteAllCookies();
-        //driver.quit();
+        driver.quit();
     }
 }

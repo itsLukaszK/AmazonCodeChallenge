@@ -25,7 +25,7 @@ public class BestSellersBestDigitalCameras {
 
     private final String digitalCameraProductsListCssLocator = "#zg_centerListWrapper .p13n-sc-truncated";
 
-    private int productIndex; // TODO
+    private String digitalCameraProductName;
 
 
     // WebElements
@@ -40,10 +40,8 @@ public class BestSellersBestDigitalCameras {
         return digitalCameraProductsList.get(index);
     }
 
-    public String getDigitalCameraProductName(int index) {
-        if (digitalCameraProductsList.get(index).getAttribute("title") != null && !digitalCameraProductsList.get(index).getAttribute("title").equals("")) {
-            return digitalCameraProductsList.get(index).getAttribute("title");
-        } else return digitalCameraProductsList.get(index).getText();
+    public String getDigitalCameraProductName() {
+        return digitalCameraProductName;
     }
 
     public String getExpectedBestSellersBestDigitalCamerasPageTitle() {
@@ -52,6 +50,15 @@ public class BestSellersBestDigitalCameras {
 
     public String getDigitalCameraProductsListCssLocator() {
         return digitalCameraProductsListCssLocator;
+    }
+
+
+    // Setters
+
+    public void setDigitalCameraProductName(int index) {
+        if (digitalCameraProductsList.get(index).getAttribute("title") != null && !digitalCameraProductsList.get(index).getAttribute("title").equals("")) {
+            digitalCameraProductName = digitalCameraProductsList.get(index).getAttribute("title");
+        } else digitalCameraProductName = digitalCameraProductsList.get(index).getText();
     }
 
 
